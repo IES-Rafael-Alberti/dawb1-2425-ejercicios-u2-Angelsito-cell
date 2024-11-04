@@ -1,32 +1,24 @@
-from lib import preguntar_edad
+from lib import ingresar_edad
 
-def mostrar_anios_cumplidos(edad: int):
-    n = 1
-    if edad == 1:
-        n = 1
-    else:
-        while True:
-            print(n, end=' ')
-            n = n + 1
-            if n == edad:
-                break
-    return n
+def mostrar_anios_cumplidos(edad: int) -> None:
+    for anio in range(1, edad + 1):
+        print(anio, end=' ')
+    print()
 
-def comprobar_edad(edad):
+def validar_edad(edad: int) -> bool:
+    if edad < 1:
+        raise ValueError('La edad introducida no debe ser menor a 1 o negativa.')
+    elif edad > 125:
+        raise ValueError('La edad introducida no debe ser mayor a 125.')
+    return True
+
+def ejecutar():
     try:
-        if edad < 1:
-            raise ValueError('La edad introducida no debe ser menor a 1 o negativo')
-        if edad > 125:
-            raise ValueError('La edad introducida no debe ser mayor a 125')
-        else:
-            print(mostrar_anios_cumplidos(edad))
-    except ValueError:
-        print("El valor ingresado no es un número válido.")
-        return False
-
-def main():
-    n = preguntar_edad()
-    comprobar_edad(n)
+        edad = ingresar_edad()
+        if validar_edad(edad):
+            mostrar_anios_cumplidos(edad)
+    except ValueError as e:
+        print(f"**ERROR** {e}")
 
 if __name__ == '__main__':
-    main()
+    ejecutar()
